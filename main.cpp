@@ -38,7 +38,7 @@ class JavaRandom {
     inline result_type nextInt(){
         return next(32);
     }
-    
+
     result_type operator()() {
         return nextInt();
     }
@@ -48,7 +48,7 @@ int main(int argc, char * argv[])
 {
     srand(time(0));
     bool timer=false;
-    
+
     if(argc>=2 && string(argv[1]).compare("-t")==0){
         timer=true;
     }
@@ -100,28 +100,28 @@ int main(int argc, char * argv[])
     for (int i = 0; i < 306; i++) {
         rodInstances[i] = 0;
     }
-    
+
     JavaRandom j(123);
     std::binomial_distribution<int> distribution(262,20.0/423);
     std::binomial_distribution<int> distribution2(305,0.5);
-    auto start = high_resolution_clock::now(); 
+    auto start = high_resolution_clock::now();
     while(running) {
         iterations++;
         if(timer==true && iterations==TIMED_ITERATION){
-            auto stop = high_resolution_clock::now(); 
-            auto duration = duration_cast<microseconds>(stop - start); 
+            auto stop = high_resolution_clock::now();
+            auto duration = duration_cast<microseconds>(stop - start);
             int m=duration.count();
             std::cout.clear();
             system("clear");
-            std::cout << "Took " << m/1000000.0<< " to perform "<< TIMED_ITERATION<<" iterations"<< std::endl; 
+            std::cout << "Took " << m/1000000.0<< " to perform "<< TIMED_ITERATION<<" iterations"<< std::endl;
             return 0;
         }
         int64_t numPearls = distribution(j);
-        
+
         pearlInstances[numPearls]++;
         pearlSum += numPearls;
         maxPearls = std::max(maxPearls, numPearls);
-        
+
 
         int64_t numRods = distribution2(j);
         rodInstances[numRods]++;
@@ -146,7 +146,7 @@ int main(int argc, char * argv[])
             // Rods Max Message
             std::cout << ansi::cursor_pos(8, rodsMaxMsg.length() + 1) << ansi::erase_in_line() << maxRods << std::endl;
         }
-    
+
     }
 
     //      Iterations                         Pearl Avg          Rods Avg          Pearls Max          Rods Max
