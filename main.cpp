@@ -102,6 +102,7 @@ int main(int argc, char * argv[])
     }
 
     JavaRandom j(123);
+    JavaRandom j2(123);
     std::binomial_distribution<int> distribution(262,20.0/423);
     std::binomial_distribution<int> distribution2(305,0.5);
     auto start = high_resolution_clock::now();
@@ -122,12 +123,11 @@ int main(int argc, char * argv[])
         pearlSum += numPearls;
         maxPearls = std::max(maxPearls, numPearls);
 
-
-        int64_t numRods = distribution2(j);
+        int64_t numRods = distribution2(j2);
         rodInstances[numRods]++;
         rodsSum += numRods;
         maxRods = std::max(maxRods, numRods);
-        if(iterations%10000000==0){
+        if(iterations%100000==0){
             // Iterations Message
             std::cout << ansi::cursor_pos(4, iterationsMsg.length() + 1) << ansi::erase_in_line() << iterations << std::endl;
             // Pearl Message
